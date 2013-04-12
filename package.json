@@ -1,6 +1,6 @@
 {
   "name": "bucket-list",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Get a file list from an Amazon S3 bucket.",
   "main": "index.js",
   "dependencies": {

@@ -9,16 +9,16 @@ exports.connect = function (opts) {
   assert.notEqual(opts.secret, undefined, 'Requres S3 AWS Secret');
   assert.notEqual(opts.bucket, undefined, 'Requires AWS S3 bucket name.');
   
-  // Create instance for s3 bucket
-  var s3 = aws2js.load("s3", opts.key, opts.secret);
-  s3.setBucket(opts.bucket);
   
   //
   return function (path, callback) {
+    // Create instance for s3 bucket
+    var s3 = aws2js.load("s3", opts.key, opts.secret);
     var stream = new Stream();
     var url = "?prefix=" + encodeURI(path);
     var buffer = [];
     
+    s3.setBucket(opts.bucket);
     stream.readable = true
     
     s3.get(url, 'stream', function(err, s3Data) {
