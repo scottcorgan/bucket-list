@@ -1,10 +1,11 @@
 {
   "name": "bucket-list",
   "version": "0.1.0",
-  "description": "Get file list in an Amazon S3 bucket.",
+  "description": "Get a file list from an Amazon S3 bucket.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "dependencies": {
+    "aws2js": "~0.8.3",
+    "xml-object-stream": "~0.2.0"
   },
   "repository": "",
   "keywords": [
