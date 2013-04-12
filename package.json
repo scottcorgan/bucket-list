@@ -7,7 +7,7 @@
     "aws2js": "~0.8.3",
     "xml-object-stream": "~0.2.0"
   },
-  "repository": "",
+  "repository": "git@github.com:scottcorgan/bucket-list.git",
   "keywords": [
     "aws",
     "amazon",
