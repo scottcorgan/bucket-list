@@ -1,0 +1,17 @@
+{
+  "name": "bucket-list",
+  "version": "0.1.0",
+  "description": "Get file list in an Amazon S3 bucket.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "keywords": [
+    "aws",
+    "amazon",
+    "s3"
+  ],
+  "author": "Scott Corgan",
+  "license": "BSD"
+}
