@@ -17,7 +17,7 @@ npm install bucket-list
 var BucketList = require('bucket-list');
 var bucket = BucketList.connect({
   key: 's3-key',
-  secret: 's3-secretn'
+  secret: 's3-secret'
   bucket: 'name-of-the-s3-bucket'
 });
 
