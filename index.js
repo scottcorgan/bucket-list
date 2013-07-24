@@ -12,12 +12,18 @@ exports.connect = function (opts) {
   
   //
   return function (path, callback) {
+    
+    // Need a traililng slash
+    if (path.charAt(path.length-1) !== '/') {
+      path += '/';
+    }
+    
     // Create instance for s3 bucket
     var s3 = aws2js.load("s3", opts.key, opts.secret);
     var stream = new Stream();
     var url = "?prefix=" + encodeURI(path);
     var buffer = [];
-    
+
     s3.setBucket(opts.bucket);
     stream.readable = true
     
