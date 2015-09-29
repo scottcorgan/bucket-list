@@ -1,6 +1,5 @@
 var assert = require('assert');
-var aws2js = require('aws2js');
-var xml = require('xml-object-stream');
+var s3 = require('s3');
 var Stream = require('stream');
 
 exports.connect = function (opts) {
@@ -9,51 +8,58 @@ exports.connect = function (opts) {
   assert.notEqual(opts.secret, undefined, 'Requres S3 AWS Secret');
   assert.notEqual(opts.bucket, undefined, 'Requires AWS S3 bucket name.');
   
-  
-  //
-  return function (path, callback) {
+  return function (path, params, callback) {
     
-    // Need a traililng slash
+    // Need a trailing slash
     if (path.charAt(path.length-1) !== '/') {
       path += '/';
     }
     
-    // Create instance for s3 bucket
-    var s3 = aws2js.load("s3", opts.key, opts.secret);
+    // Create client for s3
+    var client = s3.createClient({
+      s3Options: {
+        accessKeyId: opts.key,
+        secretAccessKey: opts.secret
+      }
+    });
+
     var stream = new Stream();
-    var url = "?prefix=" + encodeURI(path);
     var buffer = [];
 
-    s3.setBucket(opts.bucket);
+    var list = client.listObjects(
+      {s3Params: {Bucket: opts.bucket, Prefix: path, Delimiter: '/'},
+      recursive: params ? params.recursive : false});
+
     stream.readable = true
     
-    s3.get(url, 'stream', function(err, s3Data) {
-      if (err) {
-        return callback(err, null);
-      }
-      
-      var parser = xml.parse(s3Data);
-      
-      parser.each('Contents', function (content) {
-        var data = content.Key.$text;
-        
-        if (callback) {
-          buffer.push(data);
+    list.on('data', function(data) {
+      data.Contents.forEach(function (content) {
+        var data = content.Key;    
+        // Don't return directories
+        if (data.charAt(data.length-1) !== '/') {
+          stream.emit('data', data);
+          if (callback) {
+            buffer.push(data);
+          }
         }
-        
-        stream.emit('data', data);
       });
-      
-      parser.on('end', function () {
-        if (callback) {
-          callback(null, buffer);
-        }
-        
-        stream.emit('end');
-      });
-      
     });
-    
+
+    list.on('error', function(err) {
+      if (callback) {
+        return callback(err, null)
+      }
+    });
+
+    list.on('end', function() {
+      if (callback) {
+        callback(null, buffer)
+      }
+      stream.emit('end');
+    });
+
     return stream;
-  }
+    
+  };
+    
 };
