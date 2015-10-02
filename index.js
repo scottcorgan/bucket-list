@@ -28,7 +28,7 @@ exports.connect = function (opts) {
 
     var list = client.listObjects(
       {s3Params: {Bucket: opts.bucket, Prefix: path, Delimiter: '/'},
-      recursive: params ? params.recursive : false});
+      recursive: params ? params.recursive : true});
 
     stream.readable = true
     
