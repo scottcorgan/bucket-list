@@ -1,17 +1,28 @@
 {
   "name": "bucket-list",
-  "version": "0.3.3",
+  "version": "1.0.0",
   "description": "Get a file list from an Amazon S3 bucket.",
   "main": "index.js",
   "dependencies": {
     "s3": "^4.4.0"
   },
-  "repository": "git@github.com:scottcorgan/bucket-list.git",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/scottcorgan/bucket-list.git"
+  },
   "keywords": [
     "aws",
     "amazon",
     "s3"
   ],
   "author": "Scott Corgan",
-  "license": "BSD"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scottcorgan/bucket-list/issues"
+  },
+  "homepage": "https://github.com/scottcorgan/bucket-list#readme",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }
