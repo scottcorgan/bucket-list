@@ -4,8 +4,7 @@
   "description": "Get a file list from an Amazon S3 bucket.",
   "main": "index.js",
   "dependencies": {
-    "aws2js": "~0.8.3",
-    "xml-object-stream": "~0.2.0"
+    "s3": "^4.4.0"
   },
   "repository": "git@github.com:scottcorgan/bucket-list.git",
   "keywords": [
